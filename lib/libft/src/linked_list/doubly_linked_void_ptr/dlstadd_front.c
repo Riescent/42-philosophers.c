@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   dlstadd_front.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2022/10/13 15:31:47 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/03 17:37:44 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_linked_list.h"
+#include <stddef.h>
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_dlstadd_front(t_dlist **lst, t_dlist *new)
 {
-	if (s == NULL)
+	if (lst == NULL || new == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	new->next = *lst;
+	if (*lst != NULL)
+		(*lst)->previous = new;
+	*lst = new;
 }

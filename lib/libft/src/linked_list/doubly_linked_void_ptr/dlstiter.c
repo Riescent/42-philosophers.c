@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   dlstiter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2022/10/13 16:02:54 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/03 17:43:32 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_linked_list.h"
+#include "stddef.h"
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_dlstiter(t_dlist *lst, void (*f)(void *))
 {
-	if (s == NULL)
+	if (f == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

@@ -4,7 +4,9 @@ NAME			=	philo
 SRC_PATH		=	src/
 
 SRC				=\
-	main.c
+	main.c	\
+	print_state_change.c	\
+	time.c
 
 
 DIR_INCS		=\

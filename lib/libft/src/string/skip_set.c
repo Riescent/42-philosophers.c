@@ -1,13 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_test.h.c                                 :+:      :+:    :+:   */
+/*   skip_set.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 15:39:52 by vfries            #+#    #+#             */
-/*   Updated: 2022/12/20 15:40:01 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/03/09 02:08:39 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/09 02:08:45 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string_test.h"
+#include "libft.h"
+
+char	*ft_skip_set(const char *str, const char *set)
+{
+	if (*set == '\0')
+		return ((char *) str);
+	while (ft_strchr(set, *str) != NULL)
+		str++;
+	return ((char *) str);
+}

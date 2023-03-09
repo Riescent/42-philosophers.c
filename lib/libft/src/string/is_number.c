@@ -12,17 +12,15 @@
 
 #include "ft_char.h"
 
-int	ft_is_number(char *s)
+bool	ft_is_number(char *s)
 {
 	if (*s == '-' || *s == '+')
 		s++;
-	if (*s == '\0')
-		return (0);
 	while (*s != '\0')
 	{
-		if (ft_isdigit(*s) == 0)
-			return (0);
+		if (!ft_isdigit(*s))
+			return (false);
 		s++;
 	}
-	return (1);
+	return (true);
 }

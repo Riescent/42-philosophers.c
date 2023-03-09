@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   print_position_in_code.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/03/08 22:16:00 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/08 22:16:00 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_print_position_in_code(const char *file, const char *function,
+			const int line)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	ft_printf("file: %s%s%s, function %s%s()%s, line %s%d%s\n", RED, file,
+		COLOR_RESET, GREEN, function, COLOR_RESET, PURPLE, line, COLOR_RESET);
 }

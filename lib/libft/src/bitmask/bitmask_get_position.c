@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   bitmask_get_position.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/02/25 13:08:13 by vfries            #+#    #+#             */
+/*   Updated: 2023/02/26 16:33:30 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_bitmask.h"
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_bitmask_get_position(size_t target, size_t *index,
+			int8_t *right_shift)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	*index = target / 8;
+	*right_shift = 7 - target % 8;
 }

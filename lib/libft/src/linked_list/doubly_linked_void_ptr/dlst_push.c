@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   dlst_push.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/01/09 01:16:43 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/03 17:31:27 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_linked_list.h"
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_dlst_push(t_dlist **dst, t_dlist **src)
 {
-	if (s == NULL)
+	t_dlist	*tmp;
+
+	if (dst == NULL || src == NULL || *src == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	tmp = *src;
+	*src = (*src)->next;
+	(*src)->previous = NULL;
+	tmp->next = *dst;
+	if (*dst != NULL)
+		(*dst)->previous = tmp;
+	*dst = tmp;
 }

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   bitmask_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/02/25 12:41:59 by vfries            #+#    #+#             */
+/*   Updated: 2023/02/26 16:50:48 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_bitmask.h"
+#include "ft_mem.h"
 
-void	ft_putendl_fd(const char *s, int fd)
+int	ft_bitmask_init(t_bitmask *bitmask, size_t size)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	if (size % 8 == 0)
+		bitmask->arr = ft_calloc(size / 8, sizeof(*bitmask->arr));
+	else
+		bitmask->arr = ft_calloc(size / 8 + 1, sizeof(*bitmask->arr));
+	return (-(bitmask->arr == NULL));
 }

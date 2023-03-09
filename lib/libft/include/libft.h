@@ -15,6 +15,7 @@
 
 # include "ft_bools.h"
 # include "ft_char.h"
+# include "ft_colors.h"
 # include "ft_hashmap.h"
 # include "ft_io.h"
 # include "ft_linked_list.h"

@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   str_is_in_strs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/03/08 04:26:23 by tdameros          #+#    #+#             */
+/*   Updated: 2023/03/08 04:26:24 by tdameros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include <stdbool.h>
 
-void	ft_putendl_fd(const char *s, int fd)
+#include "ft_string.h"
+
+bool	ft_str_is_in_strs(char *str, char **strs)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	if (str == NULL || strs == NULL)
+		return (false);
+	while (*strs != NULL)
+	{
+		if (ft_strcmp(str, *strs) == 0)
+			return (true);
+		strs++;
+	}
+	return (false);
 }

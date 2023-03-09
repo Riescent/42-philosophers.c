@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putendl_fd.c                                       :+:      :+:    :+:   */
+/*   dlstclear.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 20:41:36 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:01:41 by vfries           ###   ########lyon.fr   */
+/*   Created: 2022/10/13 15:51:32 by vfries            #+#    #+#             */
+/*   Updated: 2023/03/03 17:43:23 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include <unistd.h>
+#include "ft_linked_list.h"
+#include <stdlib.h>
 
-void	ft_putendl_fd(const char *s, int fd)
+void	ft_dlstclear(t_dlist **lst, void (*del)(void *))
 {
-	if (s == NULL)
+	t_dlist	*next;
+
+	if (lst == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	while (*lst)
+	{
+		next = (*lst)->next;
+		if (del != NULL)
+			del((*lst)->content);
+		free(*lst);
+		*lst = next;
+	}
 }

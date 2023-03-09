@@ -1,11 +1,12 @@
-//
-// Created by vfries on 2/21/23.
-//
-
-#include <stdio.h>
 #include <sys/errno.h>
+#include <sys/time.h>
+#include <stdio.h>
 #include <limits.h>
+
 #include "libft.h"
+
+#include "philo_time.h"
+#include "print_state_change.h"
 
 static int	check_argument_count(int argc);
 static int	fill_args(int argc, char **argv, int *args);
@@ -13,11 +14,20 @@ static int	fill_args(int argc, char **argv, int *args);
 int	main(int argc, char **argv)
 {
 	int	args[5];
+	struct timeval	start_time;
 
 	if (check_argument_count(argc) < 0 || fill_args(argc, argv, args) < 0)
 		return (0);
-	for (int i = 0; i < 5; i++)
-		printf("%d   ", args[i]);
+	gettimeofday(&start_time, NULL);
+	print_state_change(FORK, get_timestamp(start_time), 0);
+	usleep(1000);
+	print_state_change(EAT, get_timestamp(start_time), 0);
+	usleep(4000);
+	print_state_change(SLEEP, get_timestamp(start_time), 0);
+	usleep(4000);
+	print_state_change(THINK, get_timestamp(start_time), 0);
+	usleep(4000);
+	print_state_change(DIE, get_timestamp(start_time), 0);
 }
 
 static int	check_argument_count(int argc)
