@@ -2,8 +2,9 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <limits.h>
+#include <unistd.h>
 
-#include "libft.h"
+#include "not_libft.h"
 
 #include "philo_time.h"
 #include "print_state_change.h"
