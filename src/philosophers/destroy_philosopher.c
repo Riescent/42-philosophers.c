@@ -3,14 +3,18 @@
 
 #include "philosophers.h"
 
-void	destroy_philosopher(void *philosopher_void)
+void	destroy_philosophers(t_philosopher *philosophers)
 {
-	t_philosopher	*philosopher;
+	size_t	size;
 
-	if (philosopher_void == NULL)
-		return ;
-	philosopher = philosopher_void;
+	size = philosophers->number_of_philosophers;
+	while (size--)
+		destroy_philosopher(philosophers + size);
+	free(philosophers);
+}
+
+void	destroy_philosopher(t_philosopher *philosopher)
+{
 	pthread_mutex_destroy(&philosopher->right_fork_mutex);
 	pthread_mutex_destroy(&philosopher->thread_should_stop_mutex);
-	free(philosopher);
 }

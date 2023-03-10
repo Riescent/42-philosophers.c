@@ -1,4 +1,4 @@
-NAME =	minishell
+NAME =	philo
 
 
 SRC_PATH =	src/
@@ -161,6 +161,7 @@ SRC =\
 	execution/mutexes.c				\
 	execution/philosopher_dies.c	\
 	execution/philosopher_handler.c	\
+	execution/print_state_change.c	\
 	execution/run_philosophers.c	\
 \
 	philosophers/destroy_philosopher.c	\
@@ -168,7 +169,6 @@ SRC =\
 \
 	arguments.c				\
 	main.c					\
-	print_state_change.c	\
 	time.c
 
 

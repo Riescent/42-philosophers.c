@@ -8,6 +8,7 @@ typedef struct s_philosopher
 	bool			thread_should_stop;
 	pthread_mutex_t	thread_should_stop_mutex;
 	int 			id;
+	int 			number_of_philosophers;
 	struct timeval	start_time;
 	int 			time_to_die;
 	int 			time_to_eat;
@@ -19,10 +20,14 @@ typedef struct s_philosopher
 	pthread_mutex_t	right_fork_mutex;
 }	t_philosopher;
 
-int		run_philosopher(t_dlist *philosophers, int number_of_philosophers);
-void	*philosopher_handler(t_dlist *philosopher_node);
-t_dlist	*init_philosophers(const int args[5]);
-void	destroy_philosopher(void *philosopher_void);
-int		compare_timeval(struct timeval t1, struct timeval t2);
+t_philosopher	*init_philosophers(const int args[5]);
+int				run_philosopher(t_philosopher *philosophers);
+void			*philosopher_handler(void *philosopher_void);
+void			destroy_philosophers(t_philosopher *philosophers);
+void			destroy_philosopher(t_philosopher *philosopher);
+int				compare_timeval(struct timeval t1, struct timeval t2);
+
+void		set_all_threads_should_stop_to_true(t_philosopher *philosophers);
+
 
 #endif //PHILOSOPHERS_H

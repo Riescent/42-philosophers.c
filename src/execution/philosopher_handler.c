@@ -7,43 +7,54 @@
 #include "philo_time.h"
 #include "print_state_change.h"
 
-void	*philosopher_handler(t_dlist *philosopher_node)
+static int	philosopher_handler_loop(t_philosopher *philosopher);
+static int	philosopher_eats(t_philosopher *philosopher,
+				struct timeval *time_to_die);
+static int	philosopher_sleeps(t_philosopher *philosopher,
+				struct timeval time_to_die);
+
+void	*philosopher_handler(void *philosopher)
 {
-	t_philosopher	*philosopher;
-	struct timeval	time_to_die;
-	long			eat_count;
-	// eat -> think -> sleep
-
-	philosopher = philosopher_node->content;
-
-	time_to_die = philosopher->start_time;
-	add_milliseconds(&time_to_die, philosopher->time_to_die);
-
-	if (philosopher_eats(philosopher, philosopher_node, &time_to_die))
+	if (philosopher_handler_loop(philosopher) < 0)
 		return (NULL);
-	eat_count = philosopher_handler_loop();
-	if (eat_count >= 0)
-		printf("Philosopher %d has eaten %ld times\n", philosopher->id,
-			eat_count - 1);
+	print_state_change(DONE, philosopher);
 	return (NULL);
 }
 
-long	philosopher_handler_loop()
+static int	philosopher_handler_loop(t_philosopher *philosopher)
 {
-	long	eat_count;
+	struct timeval time_to_die;
 
-	eat_count = 1;
+	time_to_die = philosopher->start_time;
+	add_milliseconds(&time_to_die, philosopher->time_to_die);
+	if (philosopher_eats(philosopher, &time_to_die))
+		return (-1);
+	philosopher->times_eaten++;
 	while (philosopher->number_of_times_to_eat == -1
-		|| eat_count < philosopher->number_of_times_to_eat) {
-		if (philosopher_sleeps(philosopher, philosopher_node, &time_to_die))
+		|| philosopher->times_eaten < philosopher->number_of_times_to_eat)
+	{
+		if (philosopher_sleeps(philosopher, time_to_die))
 			return (-1);
-		print_state_change(THINK, get_timestamp(philosopher->start_time,
-												get_current_time()), philosopher->id);
-		if (philosopher_eats(philosopher, philosopher_node, time_to_die))
+		print_state_change(THINK, philosopher);
+		if (philosopher_eats(philosopher, &time_to_die))
 			return (-1);
-		eat_count++;
+		philosopher->times_eaten++;
 	}
-	return (eat_count);
+	return (0);
 }
 
-static int philosopher_eats()
+static int	philosopher_eats(t_philosopher *philosopher,
+				struct timeval *time_to_die)
+{
+	(void)philosopher;
+	(void)time_to_die;
+	return (-1);
+}
+
+static int	philosopher_sleeps(t_philosopher *philosopher,
+				struct timeval time_to_die)
+{
+	(void)philosopher;
+	(void)time_to_die;
+	return (-1);
+}

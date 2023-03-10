@@ -8,17 +8,17 @@ int	main(int argc, char **argv)
 {
 	int				args[5];
 	int 			return_value;
-	t_dlist			*philosophers;
+	t_philosopher 	*philosophers;
 
 	if (check_argument_count(argc) < 0 || fill_args(argc, argv, args) < 0)
 		return (1);
 	philosophers = init_philosophers(args);
 	if (philosophers == NULL)
 	{
-		ft_putstr_fd("pthread_mutex_init() failed\n", STDERR_FILENO);
+		ft_putstr_fd("init_philosophers() failed\n", STDERR_FILENO);
 		return (2);
 	}
-	return_value = run_philosopher(philosophers, args[0]);
-	ft_dlstclear(&philosophers, &destroy_philosopher);
+	return_value = run_philosopher(philosophers);
+	destroy_philosophers(philosophers);
 	return (return_value);
 }
