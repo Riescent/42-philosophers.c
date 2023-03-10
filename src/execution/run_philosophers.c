@@ -14,8 +14,8 @@ int	run_philosopher(t_philosopher *philosophers)
 	if (philosophers->number_of_philosophers == 1)
 		return (printf("Single philosopher not supported yet\n"), 0);
 	size = philosophers->number_of_philosophers;
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (++i < size)
 	{
 		if (pthread_create(&philosophers[i].thread, NULL, &philosopher_handler,
 				philosophers + i) != 0)

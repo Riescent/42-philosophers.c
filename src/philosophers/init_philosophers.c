@@ -16,8 +16,8 @@ t_philosopher	*init_philosophers(const int args[5])
 	philosophers = malloc(sizeof(*philosophers) * args[0]);
 	if (philosophers == NULL)
 		return (NULL);
-	i = 0;
-	while (i < args[0])
+	i = -1;
+	while (++i < args[0])
 	{
 		if (init_philosopher(philosophers + i, args, i) < 0)
 		{
@@ -55,11 +55,8 @@ static void	init_left_forks(t_philosopher *philosophers)
 	const int	last = philosophers->number_of_philosophers - 1;
 	int			i;
 
-	i = 0;
-	while (i < last)
-	{
+	i = -1;
+	while (++i < last)
 		philosophers[i + 1].left_fork_mutex = &philosophers[i].right_fork_mutex;
-		i++;
-	}
 	philosophers[0].left_fork_mutex = &philosophers[i].right_fork_mutex;
 }
