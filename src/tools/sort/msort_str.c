@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "not_libft.h"
+#include "this_is_not_my_libft.h"
 
 static int	merge(char **tab, int index_start, int index_middle, int index_end);
 static char	**duplicate_tab(char **tab, int index_start, int index_end);

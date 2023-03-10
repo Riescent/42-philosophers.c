@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "not_libft.h"
+#include "this_is_not_my_libft.h"
 
 int	ft_strcmp_ignore_case(const char *s1, const char *s2)
 {

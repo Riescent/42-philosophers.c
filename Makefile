@@ -156,6 +156,7 @@ SRC =\
 	tools/sort/msort_str_ignore_case.c	\
 \
 \
+	arguments.c				\
 	main.c					\
 	print_state_change.c	\
 	time.c
@@ -166,6 +167,10 @@ DIR_INCS =\
 
 INCLUDES =\
 	$(addprefix -I , $(DIR_INCS))
+
+
+LIBS =\
+	-lpthread
 
 
 DIR_BUILD =		.build/
@@ -182,7 +187,7 @@ all:
 			$(MAKE) $(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
 
 .PHONY:	bonus
 bonus:	all

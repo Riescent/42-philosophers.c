@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "not_libft.h"
+#include "this_is_not_my_libft.h"
 
 char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "not_libft.h"
+#include "this_is_not_my_libft.h"
 
 static char	*add_word(char *arg, char **ret, int ret_index);
 static int	get_word_size(char *arg);

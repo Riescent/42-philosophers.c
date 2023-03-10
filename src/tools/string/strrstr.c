@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "not_libft.h"
+#include "this_is_not_my_libft.h"
 
 char	*ft_strrstr(const char *haystack, const char *needle)
 {
