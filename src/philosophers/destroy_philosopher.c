@@ -10,6 +10,7 @@ void	destroy_philosopher(void *philosopher_void)
 	if (philosopher_void == NULL)
 		return ;
 	philosopher = philosopher_void;
-	pthread_mutex_destroy(&philosopher->right_fork);
+	pthread_mutex_destroy(&philosopher->right_fork_mutex);
+	pthread_mutex_destroy(&philosopher->thread_should_stop_mutex);
 	free(philosopher);
 }

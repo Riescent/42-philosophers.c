@@ -6,8 +6,6 @@
 #include "philosophers.h"
 #include "philo_time.h"
 
-static void *philosopher_handler(void *arg);
-
 int	run_philosopher(t_dlist *philosophers, const int number_of_philosophers)
 {
 	t_dlist			*cursor;
@@ -15,14 +13,15 @@ int	run_philosopher(t_dlist *philosophers, const int number_of_philosophers)
 
 	if (number_of_philosophers == 1)
 		return (printf("Single philosopher not supported yet\n"), 0);
-	if (ft_dlstsize(philosophers) != number_of_philosophers)
-		printf("Unexpected number of philosophers\n");
+	if (ft_dlstsize(philosophers) != (size_t)number_of_philosophers)
+		return (printf("Unexpected number of philosophers\n"), -1);
 	cursor = philosophers;
 	while (cursor != NULL)
 	{
 		philosopher = cursor->content;
-		if (pthread_create(&philosopher->thread, NULL, philosopher_handler,
-			cursor) != 0)
+		if (pthread_create(&philosopher->thread, NULL,
+			(void * _Nullable (* _Nonnull)(void * _Nullable))
+			&philosopher_handler, cursor) != 0)
 			printf("Handle error\n"); // TODO
 		cursor = cursor->next;
 	}
@@ -33,4 +32,5 @@ int	run_philosopher(t_dlist *philosophers, const int number_of_philosophers)
 		pthread_join(philosopher->thread, NULL);
 		cursor = cursor->next;
 	}
+	return (0);
 }

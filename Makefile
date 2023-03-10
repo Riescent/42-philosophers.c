@@ -156,6 +156,16 @@ SRC =\
 	tools/sort/msort_str_ignore_case.c	\
 \
 \
+\
+\
+	execution/mutexes.c				\
+	execution/philosopher_dies.c	\
+	execution/philosopher_handler.c	\
+	execution/run_philosophers.c	\
+\
+	philosophers/destroy_philosopher.c	\
+	philosophers/init_philosophers.c	\
+\
 	arguments.c				\
 	main.c					\
 	print_state_change.c	\

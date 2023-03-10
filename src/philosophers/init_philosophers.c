@@ -24,7 +24,7 @@ t_dlist	*init_philosophers(const int args[5])
 			return (NULL);
 		}
 	}
-	ft_lst_reverse(&philosophers);
+	ft_dlst_reverse(&philosophers);
 	init_left_forks(philosophers);
 	return (philosophers);
 }
@@ -54,17 +54,19 @@ static t_philosopher	*init_philosopher(const int args[5], const int id)
 	philosopher = malloc(sizeof(*philosopher));
 	if (philosopher == NULL)
 		return (NULL);
-	if (pthread_mutex_init(&philosopher->right_fork, NULL) != 0)
+	if (pthread_mutex_init(&philosopher->thread_should_stop_mutex, NULL) != 0
+		|| pthread_mutex_init(&philosopher->right_fork_mutex, NULL) != 0)
 	{
-		free(philosopher);
+		destroy_philosopher(philosopher);
 		return (NULL);
 	}
 	philosopher->thread_should_stop = false;
 	philosopher->id = id;
-	philosopher->time_to_die = args[1] * 1000;
-	philosopher->time_to_eat = args[2] * 1000;
-	philosopher->time_to_sleep = args[3] * 1000;
+	philosopher->time_to_die = args[1];
+	philosopher->time_to_eat = args[2];
+	philosopher->time_to_sleep = args[3];
 	philosopher->number_of_times_to_eat = args[4];
+	philosopher->times_eaten = 0;
 	return (philosopher);
 }
 
@@ -79,9 +81,9 @@ static void	init_left_forks(t_dlist *philosophers)
 	{
 		philosopher = philosophers->content;
 		next_philosopher = philosophers->next->content;
-		next_philosopher->left_fork = philosopher->right_fork;
+		next_philosopher->left_fork_mutex = &philosopher->right_fork_mutex;
 		philosophers = philosophers->next;
 	}
 	philosopher = philosophers->content;
-	first_philosopher->left_fork = philosopher->right_fork;
+	first_philosopher->left_fork_mutex = &philosopher->right_fork_mutex;
 }
