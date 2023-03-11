@@ -19,11 +19,14 @@ long long	get_timestamp(const struct timeval start_time,
 void	sleep_till(const struct timeval goal)
 {
 	struct timeval	current_time;
+	long long		time_to_usleep;
 
 	gettimeofday(&current_time, NULL);
+	time_to_usleep = (goal.tv_sec - current_time.tv_sec) * 1000000
+					 + (goal.tv_usec - current_time.tv_usec);
 	// TODO check behaviour if result below 0
-	usleep((goal.tv_sec - current_time.tv_sec) * 1000000
-		+ (goal.tv_usec - current_time.tv_usec));
+	if (time_to_usleep > 0)
+		usleep(time_to_usleep);
 }
 
 void add_milliseconds(struct timeval *tv, int n)

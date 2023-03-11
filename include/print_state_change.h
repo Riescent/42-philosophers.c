@@ -13,6 +13,6 @@ enum e_state
 	DONE,
 };
 
-void	print_state_change(enum e_state state, t_philosopher *philosopher);
+int	print_state_change(enum e_state state, t_philosopher *philosopher);
 
 #endif

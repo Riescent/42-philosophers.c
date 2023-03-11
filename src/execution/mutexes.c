@@ -4,8 +4,16 @@
 
 void	lock_forks(t_philosopher *philosopher)
 {
-	pthread_mutex_lock(&philosopher->right_fork_mutex);
-	pthread_mutex_lock(philosopher->left_fork_mutex);
+	if (philosopher->id % 2)
+	{
+		pthread_mutex_lock(&philosopher->right_fork_mutex);
+		pthread_mutex_lock(philosopher->left_fork_mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(philosopher->left_fork_mutex);
+		pthread_mutex_lock(&philosopher->right_fork_mutex);
+	}
 }
 
 void	unlock_forks(t_philosopher *philosopher)

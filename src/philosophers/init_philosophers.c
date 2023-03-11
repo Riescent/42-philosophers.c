@@ -5,10 +5,11 @@
 #include "philosophers.h"
 
 static int	init_philosopher(t_philosopher	*philosopher, const int args[5],
-				const int id);
+				int id, pthread_mutex_t *print_mutex);
 static void	init_left_forks(t_philosopher *philosophers);
 
-t_philosopher	*init_philosophers(const int args[5])
+t_philosopher	*init_philosophers(const int args[5],
+					pthread_mutex_t *print_mutex)
 {
 	t_philosopher	*philosophers;
 	int 			i;
@@ -19,7 +20,7 @@ t_philosopher	*init_philosophers(const int args[5])
 	i = -1;
 	while (++i < args[0])
 	{
-		if (init_philosopher(philosophers + i, args, i) < 0)
+		if (init_philosopher(philosophers + i, args, i + 1, print_mutex) < 0)
 		{
 			philosophers->number_of_philosophers = i;
 			destroy_philosophers(philosophers);
@@ -31,7 +32,7 @@ t_philosopher	*init_philosophers(const int args[5])
 }
 
 static int	init_philosopher(t_philosopher	*philosopher, const int args[5],
-				const int id)
+				const int id, pthread_mutex_t *print_mutex)
 {
 	if (pthread_mutex_init(&philosopher->thread_should_stop_mutex, NULL) != 0
 		|| pthread_mutex_init(&philosopher->right_fork_mutex, NULL) != 0)
@@ -40,6 +41,7 @@ static int	init_philosopher(t_philosopher	*philosopher, const int args[5],
 		return (-1);
 	}
 	philosopher->thread_should_stop = false;
+	philosopher->print_mutex = print_mutex;
 	philosopher->id = id;
 	philosopher->number_of_philosophers = args[0];
 	philosopher->time_to_die = args[1];
